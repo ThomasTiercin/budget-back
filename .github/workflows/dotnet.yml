@@ -18,8 +18,8 @@ jobs:
       with:
         dotnet-version: 5.0.x
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore ./Budget.Api/Budget.sln
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build Budget.Api/Budget.sln --no-restore
     - name: Test
-      run: dotnet test
+      run: dotnet test ./Budget.UnitTests/
