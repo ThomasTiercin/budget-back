@@ -26,7 +26,7 @@ namespace Budget.Api.Controllers
         }
 
         [HttpGet("/api/Types/{id}")]
-        public ActionResult<Budget.Api.Models.Type> GetTypeByID(string id)
+        public ActionResult<Budget.Api.Models.Type> GetTypeByID(Guid id)
         {
             var result = _service.GetTypeByID(id);
             if (result is null)
@@ -39,9 +39,9 @@ namespace Budget.Api.Controllers
         [HttpPost("/api/Types")]
         public ActionResult<Budget.Api.Models.Type> AddType(Budget.Api.Models.Type type)
         {
-            if (string.IsNullOrEmpty(type.Id))
+            if (type.Id == Guid.Empty)
             {
-                type.Id = new Guid().ToString();
+                type.Id = Guid.NewGuid();
             }
             _service.AddType(type);
             return type;
@@ -55,7 +55,7 @@ namespace Budget.Api.Controllers
         }
         [Authorize(Roles = "admin")]
         [HttpDelete("/api/Types/{id}")]
-        public ActionResult<string> DeleteType(string id)
+        public ActionResult<Guid> DeleteType(Guid id)
         {
             _service.DeleteType(id);
             return id;

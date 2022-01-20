@@ -27,7 +27,7 @@ namespace Budget.Api.Controllers
         }
 
         [HttpGet("/api/Echeances/{id}")]
-        public ActionResult<Echeance> GetEcheanceByID(string id)
+        public ActionResult<Echeance> GetEcheanceByID(Guid id)
         {
             var result = _service.GetEcheanceByID(id);
             if (result is null)
@@ -40,9 +40,9 @@ namespace Budget.Api.Controllers
         [HttpPost("/api/Echeances")]
         public ActionResult<Echeance> AddEcheance(Echeance echeance)
         {
-            if (string.IsNullOrEmpty(echeance.Id))
+            if (echeance.Id == Guid.Empty)
             {
-                echeance.Id = new Guid().ToString();
+                echeance.Id = Guid.NewGuid();
             }
             _service.AddEcheance(echeance);
             return echeance;
@@ -56,7 +56,7 @@ namespace Budget.Api.Controllers
         }
         [Authorize(Roles = "admin")]
         [HttpDelete("/api/Echeances/{id}")]
-        public ActionResult<string> DeleteEcheance(string id)
+        public ActionResult<Guid> DeleteEcheance(Guid id)
         {
             _service.DeleteEcheance(id);
             return id;

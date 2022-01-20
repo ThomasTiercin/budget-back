@@ -32,13 +32,15 @@ namespace Budget.Api.Controllers
             _service = service;
 
         }
+        [Authorize(Roles = "admin")]
         [HttpGet("/api/Users")]
         public IEnumerable<User> GetUsers()
         {
             return _service.GetUsers().ToList();
         }
+        [Authorize(Roles = "admin")]
         [HttpGet("/api/Users/{id}")]
-        public ActionResult<User> GetUserByID(int id)
+        public ActionResult<User> GetUserByID(Guid id)
         {
             var result = _service.GetUserByID(id);
             if (result is null)
@@ -56,17 +58,23 @@ namespace Budget.Api.Controllers
         [HttpPost("/api/Users")]
         public ActionResult<User> AddUser(User user)
         {
+            if (user.Id == Guid.Empty)
+            {
+                user.Id = Guid.NewGuid();
+            }
             _service.AddUser(user);
             return user;
         }
+        [Authorize(Roles = "admin")]
         [HttpPut("/api/Users/{id}")]
         public ActionResult<User> UpdateUser(User user)
         {
             _service.UpdateUser(user);
             return user;
         }
+        [Authorize(Roles = "admin")]
         [HttpDelete("/api/Users/{id}")]
-        public ActionResult<int> DeleteUser(int id)
+        public ActionResult<Guid> DeleteUser(Guid id)
         {
             _service.DeleteUser(id);
             return id;

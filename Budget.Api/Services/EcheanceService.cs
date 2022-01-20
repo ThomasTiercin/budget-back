@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
-
+using System;
 namespace Budget.Api.Services
 {
     public class EcheanceService : IEcheanceService
@@ -13,14 +13,14 @@ namespace Budget.Api.Services
             _dbContext = dbContext;
         }
 
-        public void DeleteEcheance(string Id)
+        public void DeleteEcheance(Guid Id)
         {
             var echeance = _dbContext.Echeance.Find(Id);
             _dbContext.Echeance.Remove(echeance);
             Save();
         }
 
-        public Echeance GetEcheanceByID(string Id)
+        public Echeance GetEcheanceByID(Guid Id)
         {
             return _dbContext.Echeance.Include(b => b.Type).FirstOrDefault(b => b.Id == Id);
         }

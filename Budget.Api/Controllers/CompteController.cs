@@ -27,7 +27,7 @@ namespace Budget.Api.Controllers
         }
 
         [HttpGet("/api/Comptes/{id}")]
-        public ActionResult<Compte> GetCompteByID(string id)
+        public ActionResult<Compte> GetCompteByID(Guid id)
         {
             var result = _service.GetCompteByID(id);
             if (result is null)
@@ -36,27 +36,32 @@ namespace Budget.Api.Controllers
             }
             return result;
         }
-        [Authorize(Roles = "admin")]
+        
         [HttpPost("/api/Comptes")]
         public ActionResult<Compte> AddCompte(Compte compte)
         {
-            if (string.IsNullOrEmpty(compte.Id))
+            if (compte.Id == Guid.Empty)
             {
-                compte.Id = new Guid().ToString();
+                compte.Id = Guid.NewGuid();
             }
             _service.AddCompte(compte);
             return compte;
         }
-        [Authorize(Roles = "admin")]
+        [HttpGet("/api/User/{id}/Comptes")]
+        public ActionResult<List<Compte>> GetCompteByUserId(Guid id)
+        {
+            return _service.GetCompteByUserId(id).ToList();
+        }
+        
         [HttpPut("/api/Comptes/{id}")]
         public ActionResult<Compte> UpdateCompte(Compte compte)
         {
             _service.UpdateCompte(compte);
             return compte;
         }
-        [Authorize(Roles = "admin")]
+        
         [HttpDelete("/api/Comptes/{id}")]
-        public ActionResult<string> DeleteCompte(string id)
+        public ActionResult<Guid> DeleteCompte(Guid id)
         {
             _service.DeleteCompte(id);
             return id;

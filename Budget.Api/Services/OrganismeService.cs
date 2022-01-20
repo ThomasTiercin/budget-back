@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
-
+using System;
 namespace Budget.Api.Services
 {
     public class OrganismeService : IOrganismeService
@@ -13,14 +13,14 @@ namespace Budget.Api.Services
             _dbContext = dbContext;
         }
 
-        public void DeleteOrganisme(string Id)
+        public void DeleteOrganisme(Guid Id)
         {
             var organisme = _dbContext.Organisme.Find(Id);
             _dbContext.Organisme.Remove(organisme);
             Save();
         }
 
-        public Organisme GetOrganismeByID(string Id)
+        public Organisme GetOrganismeByID(Guid Id)
         {
             return _dbContext.Organisme.Find(Id);
         }

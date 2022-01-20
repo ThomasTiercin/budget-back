@@ -1,8 +1,10 @@
-﻿namespace Budget.Api.Models
+﻿using System;
+namespace Budget.Api.Models
 {
     public class Organisme
     {
-        public string Id { get; set; }
+        public Guid Id { get; set; }
         public string Nom { get; set; }
+        public string Image { get; set; }
     }
 }

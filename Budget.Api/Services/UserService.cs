@@ -56,14 +56,14 @@ namespace Budget.Api.Services
             return user.Token;
         }
 
-        public void DeleteUser(int Id)
+        public void DeleteUser(Guid Id)
         {
             var user = _dbContext.User.Find(Id);
             _dbContext.User.Remove(user);
             Save();
         }
 
-        public User GetUserByID(int Id)
+        public User GetUserByID(Guid Id)
         {
             return _dbContext.User.Find(Id);
         }
