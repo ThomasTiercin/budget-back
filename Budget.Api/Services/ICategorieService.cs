@@ -1,6 +1,6 @@
 ﻿using Budget.Api.Models;
 using System.Collections.Generic;
-
+using System; 
 namespace Budget.Api.Services
 {
     public interface ICategorieService
@@ -8,10 +8,10 @@ namespace Budget.Api.Services
         IEnumerable<Categorie> GetCategories();
 
         void AddCategorie(Categorie categorie);
-        Categorie GetCategorieByID(string Id);
+        Categorie GetCategorieByID(Guid Id);
 
         void UpdateCategorie(Categorie categorie);
 
-        void DeleteCategorie(string Id);
+        void DeleteCategorie(Guid Id);
     }
 }

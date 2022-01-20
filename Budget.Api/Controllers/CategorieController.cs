@@ -27,7 +27,7 @@ namespace Budget.Api.Controllers
         }
 
         [HttpGet("/api/Categories/{id}")]
-        public ActionResult<Categorie> GetCategorieByID(string id)
+        public ActionResult<Categorie> GetCategorieByID(Guid id)
         {
             var result = _service.GetCategorieByID(id);
             if (result is null)
@@ -40,9 +40,9 @@ namespace Budget.Api.Controllers
         [HttpPost("/api/Categories")]
         public ActionResult<Categorie> AddCategorie(Categorie categorie)
         {
-            if (string.IsNullOrEmpty(categorie.Id))
+            if (categorie.Id == Guid.Empty)
             {
-                categorie.Id = new Guid().ToString();
+                categorie.Id = Guid.NewGuid();
             }
             _service.AddCategorie(categorie);
             return categorie;
@@ -56,7 +56,7 @@ namespace Budget.Api.Controllers
         }
         [Authorize(Roles = "admin")]
         [HttpDelete("/api/Categories/{id}")]
-        public ActionResult<string> DeleteCategorie(string id)
+        public ActionResult<Guid> DeleteCategorie(Guid id)
         {
             _service.DeleteCategorie(id);
             return id;

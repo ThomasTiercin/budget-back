@@ -1,6 +1,6 @@
 ﻿using Budget.Api.Models;
 using System.Collections.Generic;
-
+using System;
 namespace Budget.Api.Services
 {
     public interface IEcheanceService
@@ -8,10 +8,10 @@ namespace Budget.Api.Services
         IEnumerable<Echeance> GetEcheances();
 
         void AddEcheance(Echeance echeance);
-        Echeance GetEcheanceByID(string Id);
+        Echeance GetEcheanceByID(Guid Id);
 
         void UpdateEcheance(Echeance echeance);
 
-        void DeleteEcheance(string Id);
+        void DeleteEcheance(Guid Id);
     }
 }

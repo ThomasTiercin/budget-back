@@ -27,7 +27,7 @@ namespace Budget.Api.Controllers
         }
 
         [HttpGet("/api/Mouvements/{id}")]
-        public ActionResult<Mouvement> GetMouvementByID(string id)
+        public ActionResult<Mouvement> GetMouvementByID(Guid id)
         {
             var result = _service.GetMouvementByID(id);
             if (result is null)
@@ -36,27 +36,32 @@ namespace Budget.Api.Controllers
             }
             return result;
         }
-        [Authorize(Roles = "admin")]
+        
         [HttpPost("/api/Mouvements")]
         public ActionResult<Mouvement> AddMouvement(Mouvement mouvement)
         {
-            if (string.IsNullOrEmpty(mouvement.Id))
+            if (mouvement.Id == Guid.Empty)
             {
-                mouvement.Id = new Guid().ToString();
+                mouvement.Id = Guid.NewGuid();
             }
             _service.AddMouvement(mouvement);
             return mouvement;
         }
-        [Authorize(Roles = "admin")]
+        [HttpGet("/api/User/{id}/Mouvements")]
+        public ActionResult<List<Mouvement>> GetMouvementByUserId(Guid id)
+        {
+            return _service.GetMouvementByUserId(id).ToList();
+        }
+        
         [HttpPut("/api/Mouvements/{id}")]
         public ActionResult<Mouvement> UpdateMouvement(Mouvement mouvement)
         {
             _service.UpdateMouvement(mouvement);
             return mouvement;
         }
-        [Authorize(Roles = "admin")]
+        
         [HttpDelete("/api/Mouvements/{id}")]
-        public ActionResult<string> DeleteMouvement(string id)
+        public ActionResult<Guid> DeleteMouvement(Guid id)
         {
             _service.DeleteMouvement(id);
             return id;

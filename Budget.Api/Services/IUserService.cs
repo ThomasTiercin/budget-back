@@ -13,11 +13,11 @@ namespace Budget.Api.Services
         IEnumerable<User> GetUsers();
 
         void AddUser(User userItem);
-        User GetUserByID(int id);
+        User GetUserByID(Guid id);
         User GetUserByUserName(string username);
         
         void UpdateUser(User userItem);
 
-        void DeleteUser(int id);
+        void DeleteUser(Guid id);
     }
 }

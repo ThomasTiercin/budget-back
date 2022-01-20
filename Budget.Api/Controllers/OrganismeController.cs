@@ -27,7 +27,7 @@ namespace Budget.Api.Controllers
         }
 
         [HttpGet("/api/Organismes/{id}")]
-        public ActionResult<Organisme> GetOrganismeByID(string id)
+        public ActionResult<Organisme> GetOrganismeByID(Guid id)
         {
             var result = _service.GetOrganismeByID(id);
             if (result is null)
@@ -40,9 +40,9 @@ namespace Budget.Api.Controllers
         [HttpPost("/api/Organismes")]
         public ActionResult<Organisme> AddOrganisme(Organisme organisme)
         {
-            if (string.IsNullOrEmpty(organisme.Id))
+            if (organisme.Id == Guid.Empty)
             {
-                organisme.Id = new Guid().ToString();
+                organisme.Id = Guid.NewGuid();
             }
             _service.AddOrganisme(organisme);
             return organisme;
@@ -56,7 +56,7 @@ namespace Budget.Api.Controllers
         }
         [Authorize(Roles = "admin")]
         [HttpDelete("/api/Organismes/{id}")]
-        public ActionResult<string> DeleteOrganisme(string id)
+        public ActionResult<Guid> DeleteOrganisme(Guid id)
         {
             _service.DeleteOrganisme(id);
             return id;

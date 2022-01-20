@@ -1,6 +1,6 @@
 ﻿using Budget.Api.Models;
 using System.Collections.Generic;
-
+using System;
 namespace Budget.Api.Services
 {
     public interface ICompteService
@@ -8,10 +8,10 @@ namespace Budget.Api.Services
         IEnumerable<Compte> GetComptes();
 
         void AddCompte(Compte compte);
-        Compte GetCompteByID(string id);
-
+        Compte GetCompteByID(Guid id);
+        IEnumerable<Compte> GetCompteByUserId(Guid id);
         void UpdateCompte(Compte compte);
 
-        void DeleteCompte(string id);
+        void DeleteCompte(Guid id);
     }
 }

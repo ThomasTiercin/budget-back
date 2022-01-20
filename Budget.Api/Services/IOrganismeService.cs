@@ -1,6 +1,6 @@
 ﻿using Budget.Api.Models;
 using System.Collections.Generic;
-
+using System;
 namespace Budget.Api.Services
 {
     public interface IOrganismeService
@@ -8,10 +8,10 @@ namespace Budget.Api.Services
         IEnumerable<Organisme> GetOrganismes();
 
         void AddOrganisme(Organisme organismeItem);
-        Organisme GetOrganismeByID(string Id);
+        Organisme GetOrganismeByID(Guid Id);
 
         void UpdateOrganisme(Organisme organismeItem);
 
-        void DeleteOrganisme(string Id);
+        void DeleteOrganisme(Guid Id);
     }
 }

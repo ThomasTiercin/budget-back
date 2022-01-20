@@ -1,12 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using System;
 namespace Budget.Api.Models
 {
     public class Echeance
     {
-        public string Id { get; set; }
-        public string Date { get; set; }
+        public Guid Id { get; set; }
+        public DateTime Date { get; set; }
         
-        public string TypeId { get; set; }
+        public Guid TypeId { get; set; }
         [ForeignKey("TypeId")]
         public virtual Type Type { get; set; }
     }

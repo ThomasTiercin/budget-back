@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
-
+using System;
 namespace Budget.Api.Services
 {
     public class TypeService : ITypeService
@@ -13,24 +13,24 @@ namespace Budget.Api.Services
             _dbContext = dbContext;
         }
 
-        public void DeleteType(string Id)
+        public void DeleteType(Guid Id)
         {
             var type = _dbContext.Type.Find(Id);
             _dbContext.Type.Remove(type);
             Save();
         }
 
-        public Type GetTypeByID(string Id)
+        public Budget.Api.Models.Type GetTypeByID(Guid Id)
         {
             return _dbContext.Type.Find(Id);
         }
 
-        public IEnumerable<Type> GetTypes()
+        public IEnumerable<Budget.Api.Models.Type> GetTypes()
         {
             return _dbContext.Type.ToList();
         }
 
-        public void AddType(Type type)
+        public void AddType(Budget.Api.Models.Type type)
         {
             _dbContext.Add(type);
             Save();
@@ -41,7 +41,7 @@ namespace Budget.Api.Services
             _dbContext.SaveChanges();
         }
 
-        public void UpdateType(Type type)
+        public void UpdateType(Budget.Api.Models.Type type)
         {
             _dbContext.Entry(type).State = EntityState.Modified;
             Save();

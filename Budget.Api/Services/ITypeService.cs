@@ -1,17 +1,17 @@
 ﻿using Budget.Api.Models;
 using System.Collections.Generic;
-
+using System;
 namespace Budget.Api.Services
 {
     public interface ITypeService
     {
-        IEnumerable<Type> GetTypes();
+        IEnumerable<Budget.Api.Models.Type> GetTypes();
 
-        void AddType(Type type);
-        Type GetTypeByID(string Id);
+        void AddType(Budget.Api.Models.Type type);
+        Budget.Api.Models.Type GetTypeByID(Guid Id);
 
-        void UpdateType(Type type);
+        void UpdateType(Budget.Api.Models.Type type);
 
-        void DeleteType(string Id);
+        void DeleteType(Guid Id);
     }
 }
